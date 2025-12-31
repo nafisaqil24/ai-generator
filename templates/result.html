@@ -1,377 +1,241 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasil Soal - Smart Edu</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<title>Hasil Soal - Smart Edu</title>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 40px 20px;
-        }
+<style>
+body {
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    margin: 0;
+    padding: 30px;
+    align-items: center;
+    color: #333;
+    display :flex
+    
+}
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .header {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
-
-        .header h1 {
-            color: #667eea;
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            color: #666;
-            font-size: 16px;
-        }
-
-        .stats {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .stat-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            font-size: 14px;
-        }
-
-        .stat-box strong {
-            font-size: 24px;
-            display: block;
-        }
-
-        .question-card {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .question-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .question-number {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 40px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-
-        .question-text {
-            color: #333;
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .options-list {
-            list-style: none;
-            margin-bottom: 20px;
-        }
-
-        .option-item {
-            background: #f8f9ff;
-            padding: 15px 20px;
-            margin-bottom: 10px;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .option-item:hover {
-            background: #e8ebff;
-            transform: translateX(5px);
-        }
-
-        .option-label {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 30px;
-            margin-right: 15px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .answer-section {
-            margin-top: 20px;
-        }
-
-        .answer-toggle {
-            background: #4caf50;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .answer-toggle:hover {
-            background: #45a049;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
-        }
-
-        .answer-content {
-            display: none;
-            margin-top: 15px;
-            padding: 20px;
-            background: #e8f5e9;
-            border-radius: 10px;
-            border-left: 4px solid #4caf50;
-        }
-
-        .answer-content.show {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .answer-text {
-            color: #2e7d32;
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .action-buttons {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: #f5f5f5;
-            color: #333;
-        }
-
-        .btn-secondary:hover {
-            background: #e0e0e0;
-        }
-        /* =====================
-   ANALISIS AI
-===================== */
-.analysis-box {
+.container {
     background: white;
-    border-radius: 15px;
+                border-radius: 20px;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                padding: 40px;
+                max-width: 500px;
+                width: 100%;
+                margin: 0  auto;
+}
+
+.header {
+    background: #fff;
     padding: 25px;
-    margin-top: 25px;
+    border-radius: 15px;
+    text-align: center;
     margin-bottom: 30px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    text-align: left;
 }
 
-.analysis-box h3 {
+.header h1 {
+    margin: 0;
     color: #667eea;
-    margin-bottom: 10px;
 }
 
-.analysis-box p {
-    color: #555;
+.badge {
+    display: inline-block;
+    background: #667eea;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-top: 10px;
     font-size: 14px;
 }
 
-.keyword-list {
-    margin-top: 12px;
+.materi-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 30px;
+    margin-bottom: 30px;
+    max-height: 200px;
+    overflow-y: auto;
+    white-space: pre-line;
+    border-left: 1px solid #667eea;
 }
 
-.keyword {
-    display: inline-block;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+.question-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.question-number {
+    width: 35px;
+    height: 35px;
+    background: #667eea;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 35px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.options li {
+    background: #f4f6ff;
+    margin: 8px 0;
+    padding: 10px 15px;
+    border-radius: 10px;
+    list-style: none;
+}
+
+.answer-btn {
+    margin-top: 15px;
+    padding: 10px 18px;
+    background: #4caf50;
     color: white;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    margin: 4px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
+.answer-box {
+    display: none;
+    margin-top: 15px;
+    background: #e8f5e9;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 5px solid #4caf50;
+}
 
-        @media (max-width: 768px) {
-            .stats {
-                flex-direction: column;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-            }
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
- 
+details {
+    margin-top: 10px;
+}
 
-        }
-    </style>
-    
-
+details summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: #667eea;
+}
+</style>
 </head>
+
 <body>
-    <p>Jenis Soal: <strong>{{ jenis_soal|replace('_',' ')|title }}</strong></p>
-    <div class="container">
-        <div class="header">
-            <h1>📝 Soal Otomatis Berhasil Dibuat!</h1>
-            <p>Berikut adalah soal-soal yang telah di-generate dari materi Anda</p>
-            <div class="stats">
-                <div class="stat-box">
-                    <strong>{{ questions|length }}</strong>
-                    Total Soal
-                </div>
-                <div class="stat-box">
-                    <strong>{{ jenis_soal|replace('_',' ')|title }}</strong>
-                    Jenis Soal
 
-                    Jenis Soal
-                </div>
-            </div>
-            
-        </div>
+<div class="container">
 
-        
-        {% for q in questions %}
-        <div class="question-card">
-            <div class="question-number">{{ loop.index }}</div>
-            <div class="question-text">{{ q.question }}</div>
-            
-            <ul class="options-list">
-                {% for opt in q.options %}
-                <li class="option-item">
-                    <span class="option-label">{{ 'ABCDEFGH'[loop.index0] }}</span>
-                    {{ opt }}
-                </li>
-                {% endfor %}
-            </ul>
-            
-            <div class="answer-section">
-                <button class="answer-toggle" onclick="toggleAnswer({{ loop.index }})">
-                    <span>👁️</span>
-                    <span id="toggle-text-{{ loop.index }}">Lihat Jawaban</span>
-                </button>
-                <div class="answer-content" id="answer-{{ loop.index }}">
-                    <div class="answer-text">
-                        ✅ Jawaban Benar: <strong>{{ q.answer }}</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-
-        <div class="action-buttons">
-    <a href="/download/{{ pdf_file }}" class="btn btn-primary">
-        <span>📥</span>
-        <span>Download PDF</span>
-    </a>
-
-    <a href="/download/{{ word_file }}" class="btn btn-primary">
-        <span>📄</span>
-        <span>Export Word</span>
-    </a>
-
-    <button class="btn btn-secondary" onclick="window.location.href='/'">
-        <span>🔄</span>
-        <span>Generate Soal Baru</span>
-    </button>
+<div class="header">
+    <h1>📝 Soal Berhasil Dibuat</h1>
+    <div class="badge">Jenis Soal: {{ jenis_soal|replace('_',' ')|title }}</div>
 </div>
 
+<h3 style="color:white">📘 Materi Pembahasan</h3>
+
+<button class="answer-btn" onclick="toggleMateri()"
+        style="background:#4caf50;#11ff00; margin-bottom:15px;">
+    📖 Lihat Materi
+</button>
+
+<div id="materi-box" class="materi-box" style="display:none;">
+{% if materi %}
+{{ materi }}
+{% endif %}
+</div>
+
+
+{% for q in questions %}
+<div class="question-card">
+
+    <div class="question-number">{{ loop.index }}</div>
+
+    <p><strong>{{ q.question }}</strong></p>
+
+    {% if q.type == 'pg' %}
+    <ul class="options">
+        {% for opt in q.options %}
+        <li>{{ 'ABCD'[loop.index0] }}. {{ opt }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <button class="answer-btn" onclick="toggleAnswer({{ loop.index }})">
+        👁️ Lihat Jawaban
+    </button>
+
+    <div id="answer-{{ loop.index }}" class="answer-box">
+        <strong>Jawaban:</strong><br>
+        {{ q.answer }}
+
+        {% if q.materi %}
+        <details>
+            <summary>📖 Materi Terkait</summary>
+            <p>{{ q.materi }}</p>
+        </details>
+        {% endif %}
     </div>
 
-    <script>
-    function toggleAnswer(index) {
-        const answerDiv = document.getElementById(`answer-${index}`);
-        const toggleText = document.getElementById(`toggle-text-${index}`);
-        
-        if (answerDiv.classList.contains('show')) {
-            answerDiv.classList.remove('show');
-            toggleText.textContent = 'Lihat Jawaban';
-        } else {
-            answerDiv.classList.add('show');
-            toggleText.textContent = 'Sembunyikan Jawaban';
-        }
+</div>
+{% endfor %}
+
+<!-- ================== ACTION BUTTONS ================== -->
+<hr style="margin:40px 0">
+
+<div style="text-align:center; margin-bottom:30px; border-radius: 20px;">
+
+    <a href="/export-pdf"
+       style="
+        background:#667eea;
+        color:white;
+        padding:14px 32px;
+        border-radius:10px;
+        text-decoration:none;
+        margin-right:15px;
+        font-weight:bold;
+        display:inline-block;
+       ">
+        📄 Export PDF
+    </a>
+
+    <a href="/"
+       style="
+        background:#4caf50;
+        color:white;
+        padding:14px 32px;
+        border-radius:10px;
+        text-decoration:none;
+        font-weight:bold;
+        display:inline-block;
+       ">
+        🔄 Generate Soal Kembali
+    </a>
+
+</div>
+<!-- ==================================================== -->
+
+</div> <!-- END CONTAINER -->
+</div>
+
+<script>
+function toggleAnswer(i) {
+    const el = document.getElementById("answer-" + i);
+    el.style.display = el.style.display === "block" ? "none" : "block";
+}
+function toggleAnswer(i) {
+    const el = document.getElementById("answer-" + i);
+    el.style.display = el.style.display === "block" ? "none" : "block";
+}
+
+function toggleMateri() {
+    const box = document.getElementById("materi-box");
+    const btn = event.target;
+
+    if (box.style.display === "none") {
+        box.style.display = "block";
+        btn.innerText = "❌ Tutup Materi";
+    } else {
+        box.style.display = "none";
+        btn.innerText = "📖 Lihat Materi";
     }
+}
 </script>
 
 </body>
